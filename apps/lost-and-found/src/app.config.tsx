@@ -1,0 +1,131 @@
+import type { AppConfig } from "@campus/skeleton";
+
+const HOUR = 3_600_000;
+
+/** App 1: a haunted lost property office. Everything the app does is described here. */
+export const config: AppConfig = {
+  id: "lost-and-found",
+  name: "Lost & Found",
+  tagline: "The haunted lost property office. Find what vanished.",
+  emoji: "👻",
+  theme: { mode: "dark", accent: "#2fc4b2", accentText: "#06201c", accent2: "#7b6cff" },
+  itemName: { singular: "Report", plural: "Reports" },
+  titleField: "title",
+  summaryField: "description",
+  pills: ["kind", "category"],
+  fields: [
+    { key: "kind", label: "Kind", type: "select", options: ["Lost", "Found"], required: true, default: "Lost", filterable: true },
+    { key: "title", label: "What is it?", type: "text", required: true, placeholder: "Black water bottle", searchable: true },
+    {
+      key: "category",
+      label: "Category",
+      type: "select",
+      options: ["Electronics", "Keys", "ID and cards", "Clothing", "Bags", "Books", "Other"],
+      required: true,
+      default: "Other",
+      filterable: true,
+    },
+    { key: "location", label: "Where", type: "text", required: true, placeholder: "Library, second floor", searchable: true },
+    { key: "when", label: "When", type: "datetime", required: true, default: Date.now() },
+    { key: "description", label: "Details", type: "longtext", placeholder: "Stickers, scratches, anything that proves it is yours", searchable: true },
+    { key: "contact", label: "Contact", type: "text", placeholder: "Email or room number", help: "Shown to anyone who opens the report." },
+    { key: "status", label: "Status", type: "select", options: ["Open", "Claimed", "Returned"], default: "Open", hideInForm: true, hideInCard: true },
+    { key: "claimedBy", label: "Claimed by", type: "text", hideInForm: true },
+  ],
+  status: {
+    options: { Open: "warn", Claimed: "info", Returned: "ok" },
+    of: (item) => String(item.values.status ?? "Open"),
+  },
+  actions: [
+    {
+      id: "claim",
+      label: "This is mine",
+      tone: "primary",
+      visible: (item, { me }) => item.values.status === "Open" && item.createdBy !== me,
+      run: (_item, { me }) => ({ status: "Claimed", claimedBy: me }),
+      toast: "Claim sent. Use the contact details to arrange the handover.",
+    },
+    {
+      id: "returned",
+      label: "Mark returned",
+      tone: "primary",
+      visible: (item, { me }) => item.createdBy === me && item.values.status !== "Returned",
+      run: () => ({ status: "Returned" }),
+      toast: "Marked as returned. The ghost rests.",
+    },
+    {
+      id: "reopen",
+      label: "Reopen",
+      visible: (item, { me }) => item.createdBy === me && item.values.status === "Returned",
+      run: () => ({ status: "Open", claimedBy: "" }),
+    },
+  ],
+  seed: (now) => [
+    {
+      createdBy: "Library Ghoul 12",
+      values: {
+        kind: "Found",
+        title: "Black water bottle with moon stickers",
+        category: "Other",
+        location: "Library, second floor",
+        when: now - 5 * HOUR,
+        description: "Left on a study desk near the window. Three moon stickers on the side.",
+        contact: "Front desk, ask for Sam",
+        status: "Open",
+      },
+    },
+    {
+      createdBy: "Sleepy Specter 41",
+      values: {
+        kind: "Lost",
+        title: "Student ID card",
+        category: "ID and cards",
+        location: "Engineering building, room E204",
+        when: now - 26 * HOUR,
+        description: "Blue lanyard. Name starts with an M.",
+        contact: "sleepy.specter@example.edu",
+        status: "Open",
+      },
+    },
+    {
+      createdBy: "Midnight Mummy 77",
+      values: {
+        kind: "Found",
+        title: "AirPods case",
+        category: "Electronics",
+        location: "Cafeteria, near the vending machines",
+        when: now - 50 * HOUR,
+        description: "White case, a small crack on the lid. Earbuds are inside.",
+        contact: "Cafeteria counter",
+        status: "Claimed",
+        claimedBy: "Friendly Banshee 23",
+      },
+    },
+    {
+      createdBy: "Wandering Wraith 58",
+      values: {
+        kind: "Lost",
+        title: "Calculus textbook",
+        category: "Books",
+        location: "Lecture hall B",
+        when: now - 3 * 24 * HOUR,
+        description: "Has my name inside the cover. Many highlighted pages.",
+        contact: "Room 312, Maple Hall",
+        status: "Returned",
+      },
+    },
+    {
+      createdBy: "Curious Poltergeist 30",
+      values: {
+        kind: "Found",
+        title: "Set of three keys on a bat keychain",
+        category: "Keys",
+        location: "Parking lot C",
+        when: now - 9 * HOUR,
+        description: "One car key, two small brass keys.",
+        contact: "Security office",
+        status: "Open",
+      },
+    },
+  ],
+};

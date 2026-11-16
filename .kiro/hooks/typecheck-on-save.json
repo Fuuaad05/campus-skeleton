@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Typecheck on save",
+      "trigger": "PostFileSave",
+      "description": "Type-checks every workspace after a source file is saved.",
+      "matcher": "(packages|apps)[\\\\/].*\\.(ts|tsx)$",
+      "action": {
+        "type": "command",
+        "command": "npm run typecheck",
+        "timeout": 120
+      }
+    }
+  ]
+}

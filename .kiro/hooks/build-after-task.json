@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Build all apps after a task",
+      "trigger": "PostTaskExec",
+      "description": "Builds both apps after each spec task completes.",
+      "action": {
+        "type": "command",
+        "command": "npm run build",
+        "timeout": 240
+      }
+    }
+  ]
+}

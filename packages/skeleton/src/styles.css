@@ -1,0 +1,541 @@
+/* Skeleton styles. Apps change the look with config.theme, not by editing this file. */
+body {
+  margin: 0;
+}
+
+.cs-root {
+  --radius: 14px;
+  --ok: #34c38f;
+  --warn: #f5a524;
+  --bad: #f0506e;
+  --info: #5aa9ff;
+  min-height: 100vh;
+  padding: 20px clamp(14px, 4vw, 40px) 40px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.cs-root[data-theme="dark"] {
+  --bg: radial-gradient(1000px 520px at 85% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%), #0d0c18;
+  --surface: #17152a;
+  --surface-2: #1f1c38;
+  --text: #ece9ff;
+  --muted: #9b97c2;
+  --border: rgba(200, 190, 255, 0.16);
+  --shadow: 0 10px 34px rgba(0, 0, 0, 0.4);
+}
+
+.cs-root[data-theme="light"] {
+  --bg: radial-gradient(1000px 520px at 85% -10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 60%), #faf6ef;
+  --surface: #ffffff;
+  --surface-2: #f1ebdf;
+  --text: #2a2233;
+  --muted: #7a6f85;
+  --border: rgba(60, 40, 80, 0.14);
+  --shadow: 0 8px 26px rgba(70, 50, 30, 0.12);
+}
+
+.cs-root *,
+.cs-root *::before,
+.cs-root *::after {
+  box-sizing: border-box;
+}
+
+.cs-root button,
+.cs-root input,
+.cs-root select,
+.cs-root textarea {
+  font: inherit;
+  color: inherit;
+}
+
+.cs-root :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Header */
+.cs-header {
+  max-width: 1200px;
+  margin: 0 auto 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.cs-emoji {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  font-size: 1.7rem;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.cs-brand h1 {
+  margin: 0;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  letter-spacing: -0.01em;
+}
+
+.cs-brand p {
+  margin: 2px 0 0;
+  color: var(--muted);
+}
+
+.cs-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Buttons */
+.cs-btn {
+  cursor: pointer;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: transform 0.1s, background 0.15s;
+}
+
+.cs-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+}
+
+.cs-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.cs-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cs-btn.cs-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--accent-text);
+  border-color: transparent;
+  font-weight: 600;
+}
+
+.cs-btn.cs-primary:hover:not(:disabled) {
+  filter: brightness(1.08);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+}
+
+.cs-btn.cs-danger {
+  color: var(--bad);
+  border-color: color-mix(in srgb, var(--bad) 45%, transparent);
+}
+
+.cs-btn.cs-ghost {
+  background: transparent;
+  color: var(--muted);
+}
+
+.cs-btn.cs-small {
+  padding: 5px 10px;
+  font-size: 0.85rem;
+}
+
+/* Menu */
+.cs-menu {
+  position: relative;
+}
+
+.cs-menu-pop {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  min-width: 190px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.cs-menu-pop button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cs-menu-pop button:hover {
+  background: var(--surface-2);
+}
+
+.cs-danger-text {
+  color: var(--bad);
+}
+
+/* Toolbar */
+.cs-toolbar {
+  max-width: 1200px;
+  margin: 0 auto 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cs-toolbar input,
+.cs-toolbar select {
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color-scheme: inherit;
+}
+
+.cs-root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+.cs-search {
+  flex: 1 1 240px;
+}
+
+.cs-chips {
+  max-width: 1200px;
+  margin: 0 auto 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cs-chip {
+  cursor: pointer;
+  padding: 5px 12px;
+  border-radius: 99px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.88rem;
+}
+
+.cs-chip b {
+  margin-left: 4px;
+  color: var(--muted);
+}
+
+.cs-chip.on {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+
+/* Grid and cards */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 14px;
+}
+
+.cs-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.15s, border-color 0.15s;
+}
+
+.cs-card:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+.cs-card-main {
+  flex: 1;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 14px 14px 8px;
+  cursor: pointer;
+}
+
+.cs-card h3,
+.cs-detail h3 {
+  margin: 8px 0 6px;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+.cs-summary {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cs-pills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.cs-pill,
+.cs-badge {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 9px;
+  border-radius: 99px;
+}
+
+.cs-pill {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.cs-badge {
+  font-weight: 700;
+  color: #101018;
+}
+
+.cs-tone-ok {
+  background: var(--ok);
+}
+.cs-tone-warn {
+  background: var(--warn);
+}
+.cs-tone-bad {
+  background: var(--bad);
+  color: #fff;
+}
+.cs-tone-info {
+  background: var(--info);
+}
+.cs-tone-muted {
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.cs-meta {
+  margin: 0;
+  display: grid;
+  gap: 3px;
+  font-size: 0.88rem;
+}
+
+.cs-meta div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 8px;
+}
+
+.cs-meta dt {
+  color: var(--muted);
+}
+
+.cs-meta dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.cs-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 14px 12px;
+  flex-wrap: wrap;
+}
+
+.cs-card-foot small {
+  color: var(--muted);
+}
+
+.cs-actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Meter */
+.cs-meter-wrap {
+  margin-top: 10px;
+}
+
+.cs-meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.cs-meter-label b {
+  color: var(--text);
+}
+
+.cs-meter {
+  height: 7px;
+  border-radius: 99px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.cs-meter > div {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: width 0.4s;
+}
+
+/* Empty */
+.cs-empty {
+  text-align: center;
+  padding: 60px 16px;
+  color: var(--muted);
+}
+
+.cs-empty span {
+  font-size: 2.6rem;
+}
+
+.cs-empty h2 {
+  color: var(--text);
+  margin: 8px 0 4px;
+}
+
+/* Modal */
+.cs-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(8, 6, 20, 0.6);
+  backdrop-filter: blur(3px);
+}
+
+.cs-modal {
+  position: relative;
+  width: min(500px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  padding: 20px;
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cs-modal h2 {
+  margin: 0;
+}
+
+.cs-hint,
+.cs-by {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.cs-x {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.cs-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.cs-field label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.cs-field input,
+.cs-field select,
+.cs-field textarea {
+  padding: 9px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+
+.cs-field [aria-invalid="true"] {
+  border-color: var(--bad);
+}
+
+.cs-field small {
+  color: var(--muted);
+}
+
+.cs-error {
+  margin: 0;
+  color: var(--bad);
+  font-size: 0.85rem;
+}
+
+.cs-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cs-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 60;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-root * {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@campus/skeleton",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The skeleton: describe your data in a config object and get a complete app.",
+  "license": "MIT",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

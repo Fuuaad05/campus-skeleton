@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Keep apps free of skeleton hacks",
+      "trigger": "PostFileSave",
+      "description": "Guards the rule that app-specific behaviour lives in app config, not in the skeleton.",
+      "matcher": "packages[\\\\/]skeleton[\\\\/]src[\\\\/].*\\.(ts|tsx)$",
+      "action": {
+        "type": "agent",
+        "prompt": "A skeleton source file was saved. Check that it does not mention a specific app (for example lost-and-found, study-seance, \"Lost\", \"Found\", \"members\", \"capacity\"). Skeleton code must stay generic and driven by AppConfig. If it special-cases an app, move that behaviour into the app's app.config.tsx through an existing extension point, or add a generic optional extension point. If it is clean, say nothing."
+      }
+    }
+  ]
+}

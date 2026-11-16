@@ -1,0 +1,26 @@
+{
+  "name": "campus-skeleton",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A lean, config-driven skeleton for campus micro-apps, shown with two apps: Lost & Found and Study Seance.",
+  "license": "MIT",
+  "author": "Fuuaad05",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:lost": "npm run dev -w apps/lost-and-found",
+    "dev:study": "npm run dev -w apps/study-seance",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "new-app": "node scripts/new-app.mjs"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.6.0",
+    "vite": "^7.0.0"
+  }
+}
