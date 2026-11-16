@@ -5,6 +5,7 @@ export type {
   AppConfig,
   Field,
   FieldType,
+  HeroConfig,
   Item,
   ItemAction,
   SeedItem,

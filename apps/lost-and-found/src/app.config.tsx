@@ -1,4 +1,5 @@
 import type { AppConfig } from "@campus/skeleton";
+import { TagArt } from "./TagArt";
 
 const HOUR = 3_600_000;
 
@@ -8,11 +9,19 @@ export const config: AppConfig = {
   name: "Lost & Found",
   tagline: "The haunted lost property office. Find what vanished.",
   emoji: "👻",
-  theme: { mode: "dark", accent: "#2fc4b2", accentText: "#06201c", accent2: "#7b6cff" },
+  theme: { mode: "light", accent: "#b3261e", accentText: "#fff7e8" },
   itemName: { singular: "Report", plural: "Reports" },
   titleField: "title",
   summaryField: "description",
   pills: ["kind", "category"],
+  hero: {
+    eyebrow: "Property office. Counter open all night.",
+    headline: "Somebody found your water bottle.",
+    lede: "Black, three moon stickers, left on a desk by the library window. If you lost something on campus, look here first. If you found something, leave a tag so it can go home.",
+    primaryCta: "Report something",
+    secondaryCta: "Search the shelf",
+    art: (ctx) => <TagArt items={ctx.items} now={ctx.now} />,
+  },
   fields: [
     { key: "kind", label: "Kind", type: "select", options: ["Lost", "Found"], required: true, default: "Lost", filterable: true },
     { key: "title", label: "What is it?", type: "text", required: true, placeholder: "Black water bottle", searchable: true },

@@ -42,7 +42,8 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
   const [form, setForm] = useState<{ editing: Item | null } | null>(null);
   const [toast, setToast] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [renaming, setRenaming] = useState(false);
+  // The name prompt appears only when someone first does something that needs a name.
+  const [askName, setAskName] = useState<{ then?: (name: string) => void } | null>(null);
   const toastTimer = useRef<number | undefined>(undefined);
   const fileRef = useRef<HTMLInputElement>(null);
 
@@ -54,6 +55,11 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
     window.clearTimeout(toastTimer.current);
     setToast(message);
     toastTimer.current = window.setTimeout(() => setToast(""), 4500);
+  }
+
+  function withMe(fn: (name: string) => void) {
+    if (me) fn(me);
+    else setAskName({ then: fn });
   }
 
   const filterFields = config.fields.filter((f) => f.filterable && (f.type === "select" || f.type === "text"));
@@ -91,8 +97,10 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
   const open = items.find((i) => i.id === openId) ?? null;
 
   function runAction(action: ItemAction, item: Item) {
-    patch(item.id, action.run(item, { me, now: Date.now() }));
-    if (action.toast) say(action.toast);
+    withMe((who) => {
+      patch(item.id, action.run(item, { me: who, now: Date.now() }));
+      if (action.toast) say(action.toast);
+    });
   }
 
   function save(values: Record<string, unknown>) {
@@ -100,8 +108,10 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
       update(form.editing.id, values);
       say(`${config.itemName.singular} updated.`);
     } else {
-      add(config.beforeCreate ? config.beforeCreate(values, me) : values, me);
-      say(`${config.itemName.singular} created.`);
+      withMe((who) => {
+        add(config.beforeCreate ? config.beforeCreate(values, who) : values, who);
+        say(`${config.itemName.singular} created.`);
+      });
     }
     setForm(null);
   }
@@ -122,33 +132,28 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
     setMenuOpen(false);
   }
 
+  function scrollToList() {
+    document.getElementById("cs-list")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   const theme = config.theme;
   const style = {
     "--accent": theme.accent,
     "--accent-text": theme.accentText ?? "#ffffff",
-    "--accent-2": theme.accent2 ?? theme.accent,
   } as React.CSSProperties;
-
-  const needsName = !me || renaming;
+  const hero = config.hero;
 
   return (
-    <div className="cs-root" data-theme={theme.mode} style={style}>
+    <div className="cs-root" data-theme={theme.mode} data-app={config.id} style={style}>
       <header className="cs-header">
         <div className="cs-brand">
-          <span className="cs-emoji" aria-hidden="true">
-            {config.emoji}
-          </span>
-          <div>
-            <h1>{config.name}</h1>
-            <p>{config.tagline}</p>
-          </div>
+          <h1>{config.name}</h1>
+          {!hero && <p>{config.tagline}</p>}
         </div>
         <div className="cs-header-actions">
-          {me && (
-            <button type="button" className="cs-btn cs-ghost" onClick={() => setRenaming(true)} title="Change your name">
-              {me}
-            </button>
-          )}
+          <button type="button" className="cs-btn cs-ghost" onClick={() => setAskName({})} title="Change your name">
+            {me || "Pick a name"}
+          </button>
           <div className="cs-menu">
             <button type="button" className="cs-btn" aria-expanded={menuOpen} onClick={() => setMenuOpen((o) => !o)}>
               Data
@@ -184,13 +189,34 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
               </div>
             )}
           </div>
-          <button type="button" className="cs-btn cs-primary" onClick={() => setForm({ editing: null })} disabled={!me}>
+          <button type="button" className="cs-btn cs-primary" onClick={() => withMe(() => setForm({ editing: null }))}>
             New {config.itemName.singular.toLowerCase()}
           </button>
         </div>
       </header>
 
-      <section className="cs-toolbar" aria-label="Search and filters">
+      {hero && (
+        <section className="cs-hero" aria-labelledby="cs-hero-title">
+          <div className="cs-hero-copy">
+            {hero.eyebrow && <p className="cs-eyebrow">{hero.eyebrow}</p>}
+            <h2 id="cs-hero-title">{hero.headline}</h2>
+            <p className="cs-lede">{hero.lede}</p>
+            <div className="cs-hero-cta">
+              <button type="button" className="cs-btn cs-primary cs-big" onClick={() => withMe(() => setForm({ editing: null }))}>
+                {hero.primaryCta}
+              </button>
+              {hero.secondaryCta && (
+                <button type="button" className="cs-textlink" onClick={scrollToList}>
+                  {hero.secondaryCta}
+                </button>
+              )}
+            </div>
+          </div>
+          {hero.art && <div className="cs-hero-art">{hero.art({ items, now })}</div>}
+        </section>
+      )}
+
+      <section className="cs-toolbar" id="cs-list" aria-label="Search and filters">
         <input
           type="search"
           className="cs-search"
@@ -247,11 +273,7 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
           <div className="cs-empty">
             <span aria-hidden="true">{config.emoji}</span>
             <h2>{items.length === 0 ? `No ${config.itemName.plural.toLowerCase()} yet` : "Nothing matches"}</h2>
-            <p>
-              {items.length === 0
-                ? `Be the first to add one.`
-                : "Try a different search or clear the filters."}
-            </p>
+            <p>{items.length === 0 ? "Be the first to add one." : "Try a different search or clear the filters."}</p>
             {items.length > 0 && (
               <button
                 type="button"
@@ -338,15 +360,17 @@ export function SkeletonApp({ config }: { config: AppConfig }) {
 
       {form && <ItemForm config={config} editing={form.editing} onSave={save} onClose={() => setForm(null)} />}
 
-      {needsName && (
+      {askName && (
         <NamePrompt
           initial={me}
           appName={config.name}
           onDone={(name) => {
             setMe(name);
-            setRenaming(false);
+            const next = askName.then;
+            setAskName(null);
+            next?.(name);
           }}
-          onCancel={me ? () => setRenaming(false) : undefined}
+          onCancel={() => setAskName(null)}
         />
       )}
 
@@ -368,7 +392,7 @@ function NamePrompt({
   initial: string;
   appName: string;
   onDone: (name: string) => void;
-  onCancel?: () => void;
+  onCancel: () => void;
 }) {
   const [name, setName] = useState(initial || randomAlias());
   return (
@@ -380,21 +404,19 @@ function NamePrompt({
         aria-labelledby="cs-name-title"
         onSubmit={(e) => {
           e.preventDefault();
-          if (name.trim()) onDone(name);
+          if (name.trim()) onDone(name.trim());
         }}
       >
-        <h2 id="cs-name-title">Welcome to {appName}</h2>
+        <h2 id="cs-name-title">Who are you at {appName}?</h2>
         <p className="cs-hint">Pick a name other students will see. It is stored only in this browser.</p>
         <div className="cs-field">
           <label htmlFor="cs-name">Your name</label>
           <input id="cs-name" value={name} maxLength={40} onChange={(e) => setName(e.target.value)} autoFocus />
         </div>
         <div className="cs-modal-actions">
-          {onCancel && (
-            <button type="button" className="cs-btn" onClick={onCancel}>
-              Cancel
-            </button>
-          )}
+          <button type="button" className="cs-btn" onClick={onCancel}>
+            Cancel
+          </button>
           <button type="submit" className="cs-btn cs-primary" disabled={!name.trim()}>
             Continue
           </button>

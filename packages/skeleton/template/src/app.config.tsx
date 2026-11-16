@@ -9,7 +9,7 @@ export const config: AppConfig = {
   name: "__NAME__",
   tagline: "Describe what this app is for.",
   emoji: "🎃",
-  theme: { mode: "dark", accent: "#ff8a3d", accentText: "#2a1200", accent2: "#c04bff" },
+  theme: { mode: "dark", accent: "#ff8a3d", accentText: "#2a1200" },
   itemName: { singular: "Post", plural: "Posts" },
   titleField: "title",
   summaryField: "body",

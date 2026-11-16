@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@campus/skeleton": "*",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/young-serif": "^5.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }

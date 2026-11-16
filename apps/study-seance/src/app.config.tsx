@@ -1,5 +1,6 @@
 import { Meter } from "@campus/skeleton";
 import type { AppConfig, Item } from "@campus/skeleton";
+import { TicketArt } from "./TicketArt";
 
 const HOUR = 3_600_000;
 const DAY = 24 * HOUR;
@@ -19,11 +20,19 @@ export const config: AppConfig = {
   name: "Study Séance",
   tagline: "Gather the living to revise the dead material.",
   emoji: "🕯️",
-  theme: { mode: "light", accent: "#c2571a", accentText: "#ffffff", accent2: "#8a3ffc" },
+  theme: { mode: "dark", accent: "#f06a3b", accentText: "#1a0d08" },
   itemName: { singular: "Session", plural: "Sessions" },
   titleField: "topic",
   summaryField: "notes",
   pills: ["level"],
+  hero: {
+    eyebrow: "Study sessions, tonight and this week",
+    headline: "Nobody passes statistics alone.",
+    lede: "Pick a table, bring your past exams, and sit down with four people who also have not started chapter 7. Seats are limited. The snacks are not guaranteed.",
+    primaryCta: "Host a session",
+    secondaryCta: "Find a table",
+    art: (ctx) => <TicketArt items={ctx.items} now={ctx.now} />,
+  },
   fields: [
     { key: "topic", label: "Topic", type: "text", required: true, placeholder: "Dynamic programming, chapters 5 to 7", searchable: true },
     { key: "course", label: "Course", type: "text", required: true, placeholder: "CS 301", filterable: true, searchable: true },

@@ -1,0 +1,356 @@
+/* Lost & Found skin: a campus property office. Manila paper, typewriter type, rubber stamps. */
+.cs-root[data-app="lost-and-found"][data-theme] {
+  --font-display: "Special Elite", "Courier New", monospace;
+  --font-stamp: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --bg: #d9c79c;
+  --surface: #f4e9cd;
+  --surface-2: #e8d9b3;
+  --text: #1c1812;
+  --muted: #62573f;
+  --border: #1c1812;
+  --radius: 2px;
+  --ink: #1c1812;
+  --stamp-red: #b3261e;
+  --stamp-blue: #1f4f7a;
+  --stamp-green: #2d6a3e;
+  background-image: repeating-linear-gradient(0deg, transparent 0 31px, rgba(28, 24, 18, 0.07) 31px 32px);
+}
+
+[data-app="lost-and-found"] .cs-header {
+  padding-bottom: 12px;
+  border-bottom: 4px double var(--ink);
+}
+
+[data-app="lost-and-found"] .cs-brand h1 {
+  font-family: var(--font-stamp);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Buttons and inputs: hard edges, hard shadows, like a rubber stamp pad. */
+[data-app="lost-and-found"] .cs-btn {
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-family: var(--font-stamp);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-app="lost-and-found"] .cs-btn:hover:not(:disabled) {
+  background: #fff6dc;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+[data-app="lost-and-found"] .cs-btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+[data-app="lost-and-found"] .cs-btn.cs-primary {
+  background: var(--stamp-red);
+  color: #fff7e8;
+  border-color: var(--ink);
+}
+
+[data-app="lost-and-found"] .cs-btn.cs-primary:hover:not(:disabled) {
+  background: #c9332a;
+  filter: none;
+}
+
+[data-app="lost-and-found"] .cs-btn.cs-ghost {
+  box-shadow: none;
+  background: transparent;
+  border-style: dashed;
+}
+
+[data-app="lost-and-found"] .cs-btn.cs-danger {
+  color: var(--stamp-red);
+}
+
+[data-app="lost-and-found"] .cs-textlink {
+  font-family: var(--font-display);
+  color: var(--ink);
+}
+
+[data-app="lost-and-found"] .cs-toolbar input,
+[data-app="lost-and-found"] .cs-toolbar select,
+[data-app="lost-and-found"] .cs-field input,
+[data-app="lost-and-found"] .cs-field select,
+[data-app="lost-and-found"] .cs-field textarea {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: #fbf4df;
+}
+
+[data-app="lost-and-found"] .cs-chip {
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  font-family: var(--font-stamp);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+[data-app="lost-and-found"] .cs-chip b {
+  color: var(--stamp-red);
+}
+
+[data-app="lost-and-found"] .cs-chip.on {
+  background: var(--ink);
+  color: #f4e9cd;
+}
+
+[data-app="lost-and-found"] .cs-chip.on b {
+  color: #f4e9cd;
+}
+
+/* Hero */
+[data-app="lost-and-found"] .cs-eyebrow {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--ink);
+  color: #f4e9cd;
+  font-family: var(--font-stamp);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+}
+
+[data-app="lost-and-found"] .cs-hero-copy h2 {
+  font-weight: 400;
+  font-size: clamp(2.2rem, 4.8vw, 3.9rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+[data-app="lost-and-found"] .cs-lede {
+  color: #3a3224;
+}
+
+/* Cards: manila tags with a punched hole and stitched edge */
+[data-app="lost-and-found"] .cs-card {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: 26px 3px 3px 3px;
+  outline: 1px dashed rgba(28, 24, 18, 0.45);
+  outline-offset: -8px;
+  box-shadow: 4px 4px 0 rgba(28, 24, 18, 0.9);
+  transition: transform 0.15s;
+}
+
+[data-app="lost-and-found"] .cs-card:hover {
+  transform: rotate(-0.6deg) translateY(-2px);
+}
+
+[data-app="lost-and-found"] .cs-card::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--ink);
+}
+
+[data-app="lost-and-found"] .cs-card-main {
+  padding: 16px 18px 8px 34px;
+}
+
+[data-app="lost-and-found"] .cs-card h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.12rem;
+}
+
+[data-app="lost-and-found"] .cs-pill {
+  background: var(--ink);
+  color: #f4e9cd;
+  border-radius: 0;
+  font-family: var(--font-stamp);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+[data-app="lost-and-found"] .cs-badge {
+  display: inline-block;
+  background: transparent;
+  border: 2px solid currentColor;
+  border-radius: 3px;
+  padding: 0 8px;
+  font-family: var(--font-stamp);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  transform: rotate(-4deg);
+  opacity: 0.92;
+}
+
+[data-app="lost-and-found"] .cs-tone-warn {
+  color: var(--stamp-red);
+}
+[data-app="lost-and-found"] .cs-tone-info {
+  color: var(--stamp-blue);
+}
+[data-app="lost-and-found"] .cs-tone-ok {
+  color: var(--stamp-green);
+}
+
+[data-app="lost-and-found"] .cs-meta dt {
+  font-family: var(--font-stamp);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+[data-app="lost-and-found"] .cs-card-foot {
+  margin: 0 18px;
+  padding: 8px 0 12px 16px;
+  border-top: 1px dashed rgba(28, 24, 18, 0.5);
+}
+
+[data-app="lost-and-found"] .cs-modal {
+  border: 3px solid var(--ink);
+  background: var(--surface);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.45);
+}
+
+[data-app="lost-and-found"] .cs-modal h2 {
+  font-weight: 400;
+}
+
+[data-app="lost-and-found"] .cs-menu-pop {
+  border: 2px solid var(--ink);
+  background: var(--surface);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+[data-app="lost-and-found"] .cs-toast {
+  border: 2px solid var(--ink);
+  background: #fbf4df;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+/* The hanging tag in the hero */
+.lf-tag {
+  position: relative;
+  max-width: 380px;
+  margin: 0 auto;
+  padding-top: 64px;
+  transform: rotate(3deg);
+  transform-origin: 50% 0;
+}
+
+.lf-string {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 120px;
+  height: 110px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.lf-tag-edge {
+  background: #1c1812;
+  clip-path: polygon(0 34px, 34px 0, calc(100% - 34px) 0, 100% 34px, 100% 100%, 0 100%);
+  padding: 3px;
+}
+
+.lf-tag-body {
+  position: relative;
+  background: #ecd9a8;
+  clip-path: polygon(0 31px, 31px 0, calc(100% - 31px) 0, 100% 31px, 100% 100%, 0 100%);
+  padding: 62px 26px 22px;
+  min-height: 330px;
+}
+
+.lf-tag-body::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #d9c79c;
+  border: 3px solid #1c1812;
+}
+
+.lf-tag-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.lf-no {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.lf-stamp {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b3261e;
+  border: 3px solid #b3261e;
+  padding: 0 10px;
+  transform: rotate(-6deg);
+}
+
+.lf-title {
+  margin: 0 0 12px;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 1.6rem;
+  line-height: 1.15;
+}
+
+.lf-line {
+  margin: 0 0 4px;
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 1rem;
+  color: #3a3224;
+}
+
+.lf-count {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 2px dashed rgba(28, 24, 18, 0.55);
+}
+
+.lf-count b {
+  font-family: "Barlow Condensed", "Arial Narrow", sans-serif;
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 1;
+  color: #b3261e;
+}
+
+.lf-count span {
+  font-family: "Special Elite", "Courier New", monospace;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 820px) {
+  .lf-tag {
+    transform: rotate(1.5deg);
+    max-width: 100%;
+  }
+}

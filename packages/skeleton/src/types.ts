@@ -53,8 +53,6 @@ export interface Theme {
   accent: string;
   /** Text colour on top of the accent colour. */
   accentText?: string;
-  /** A second colour used for gradients and highlights. */
-  accent2?: string;
 }
 
 export interface SeedItem {
@@ -89,4 +87,18 @@ export interface AppConfig {
   renderExtra?: (item: Item, now: number) => ReactNode;
   /** Sample items shown the first time the app opens. */
   seed?: (now: number) => SeedItem[];
+  /** The opening section of the page. Skip it for a plain list. */
+  hero?: HeroConfig;
+}
+
+export interface HeroConfig {
+  eyebrow?: string;
+  headline: string;
+  lede: string;
+  /** Opens the create form. */
+  primaryCta: string;
+  /** Scrolls to the list. */
+  secondaryCta?: string;
+  /** Artwork on the right. It receives live data, so it can show real items. */
+  art?: (ctx: { items: Item[]; now: number }) => ReactNode;
 }

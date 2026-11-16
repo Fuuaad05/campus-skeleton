@@ -10,11 +10,12 @@ Built for **Kiroween 2026**, Skeleton Crew category, with [Kiro](https://kiro.de
 | | [Lost & Found](apps/lost-and-found) | [Study Séance](apps/study-seance) |
 | --- | --- | --- |
 | Purpose | Report and claim lost items | Organise study groups |
-| Theme | Dark teal | Light parchment |
+| Look | Manila luggage tags and rubber stamps | Cream admit-one tickets in a dark room |
 | Status | Stored: Open, Claimed, Returned | Derived from time and seats: Open, Full, Past |
 | Actions | Claim, mark returned, reopen | Join, leave |
+| Hero art | Hanging tag showing the newest open report | Ticket for the next session with a free seat |
 | Extras | Kind and category pills | Seats meter, auto-join for the creator |
-| App code | `app.config.tsx` + `main.tsx` | `app.config.tsx` + `main.tsx` |
+| App code | config, hero art, one skin.css | config, hero art, one skin.css |
 
 Both apps share every line of UI from [`packages/skeleton`](packages/skeleton).
 
@@ -35,7 +36,7 @@ export const config: AppConfig = {
 };
 ```
 Field types: `text`, `longtext`, `number`, `select`, `datetime`, `people`.
-Optional extension points: `status`, `actions`, `beforeCreate`, `renderExtra`, `pills`, `summaryField`, `seed`.
+Optional extension points: `hero`, `status`, `actions`, `beforeCreate`, `renderExtra`, `pills`, `summaryField`, `seed`. Each app adds a `skin.css` to change how it looks.
 
 ## Make a third app in a minute
 ```bash
